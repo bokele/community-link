@@ -32,23 +32,24 @@ class Create extends Component
         if ($response === 'exist') {
             // dd($response);
             Notification::make()
-                ->title('This link alread exist, the updated time will be updated')
+                ->title('That Link Has Already Been Submitted')
+                ->body("We'll instead bump the timestamps and bring that link back to the top. Thanks!")
                 ->success()
                 ->send();
         } else {
             if (auth()->user()->isTrusted()) {
                 Notification::make()
-                    ->title('Thanks for he contributiont')
+                    ->title('Thanks for the contribution!')
                     ->success()
                     ->send();
             } else {
                 Notification::make()
-                    ->title('This contribution will be approved shortly')
+                    ->title('Thanks!')
+                    ->body('This contribution will be approved shortly.')
                     ->success()
                     ->send();
             }
         }
-
 
 
         return to_route('community.index');

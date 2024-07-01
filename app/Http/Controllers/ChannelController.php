@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Channel;
 use App\Models\CommunityLink;
+use App\Queries\CommunityLinksQuery;
 use Illuminate\Http\Request;
 
 class ChannelController extends Controller
@@ -13,11 +14,24 @@ class ChannelController extends Controller
      */
     public function __invoke(Request $request, Channel $channel)
     {
-    
 
-        $communityLinks = CommunityLink::with(['user', 'channel'])->isApproved()->forChannel($channel)->latest('updated_at')->paginate(3);
+
+        $communityLinks
+            = (new CommunityLinksQuery)->get(
+                request()->exists('popular'),
+                $channel
+            );;
 
 
         return view('community.index', compact('communityLinks', 'channel'));
     }
+
+
+    // $links = (new CommunityLinksQuery)->get(
+    //         request()->exists('popular'), $channel
+    //     );
+
+    //     $channels = Channel::orderBy('title', 'asc')->get();
+
+    //     return view('community.index', compact('links', 'channels', 'channel'));
 }

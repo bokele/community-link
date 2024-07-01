@@ -103,4 +103,6 @@ class CommunityLink extends Model
     {
         return $this->belongsTo(Channel::class);
     }
+
+    
 }
