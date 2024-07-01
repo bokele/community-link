@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Channel;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,10 @@ class CommunityLinkFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'user_id' => User::factory(),
+            'channel_id' => Channel::factory(),
+            'title' => fake()->sentence(),
+            'url' => fake()->unique()->url(),
         ];
     }
 }

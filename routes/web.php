@@ -1,10 +1,15 @@
 <?php
 
+use App\Http\Controllers\ChannelController;
+use App\Http\Controllers\CommunityLinkController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [CommunityLinkController::class, 'index'])->name('community.index');
+Route::get('/channel/{channel:slug}', [CommunityLinkController::class, 'index'])->name('channel.index');
+
+
+
+
 
 Route::middleware([
     'auth:sanctum',

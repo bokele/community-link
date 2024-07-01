@@ -17,7 +17,9 @@ class ChannelFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'title' => fake()->sentence(),
+            'slug' => fake()->unique()->slug(),
+            'color' => fake()->safeColorName(),
         ];
     }
 }

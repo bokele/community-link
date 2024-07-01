@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -61,5 +62,25 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function votes(): BelongsToMany
+    {
+        return $this->belongsToMany(CommunityLink::class, 'community_links_votes')
+            ->withTimestamps();
+    }
+
+
+    public function isTrusted()
+    {
+        return !!$this->trusted;
+    }
+
+
+
+    public function votedFor(CommunityLink $link)
+    {
+
+        return $link->votes->contains('user_id', $this->id);
     }
 }

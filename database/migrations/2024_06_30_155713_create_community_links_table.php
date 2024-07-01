@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class)->index();
             $table->foreignIdFor(Channel::class)->index();
             $table->string('title');
-            $table->string('link')->unique();
+            $table->string('url')->unique();
             $table->boolean('approved')->default(false);
             $table->timestamps();
         });
